@@ -1,0 +1,37 @@
+[package]
+title = "Livestream WebSocket Client"
+description = "Livestream WebSocket client running a single-page web application."
+version = "1.4.5"
+category = "services"
+authors = ["NVIDIA"]
+repository = ""
+preview_image = "data/preview.png"
+icon = "data/icon.png"
+keywords = ["kit", "streaming", "websocket", "js", "livestream", "client"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+
+[dependencies]
+"omni.kit.livestream.websocket" = {}
+"omni.services.core" = {}
+"omni.services.streaming.manager" = {}
+"omni.services.transport.server.http" = {}
+
+[[python.module]]
+name = "omni.services.streamclient.websocket"
+
+[settings.exts."omni.services.streamclient.websocket"]
+# Prefix of the router for the front-end client UI and services available for WebSocket server access:
+routerPrefix = "/streaming"
+# Endpoint where the front-end client UI will be available (using the `{routerPrefix}/{clientURL}` format):
+clientUrl = "/client"
+
+[[test]]
+dependencies = [
+    "omni.services.client",
+    "omni.services.transport.client.http_async",
+]
+stdoutFailPatterns.exclude = [
+    "*<class 'omni.kit.async_engine.async_engine._AsyncEngineDriver'>: extension object is still alive*",
+    "*<class 'omni.kit.menu.utils.scripts.utils.MenuUtilsExtension'>: extension object is still alive*",
+]
